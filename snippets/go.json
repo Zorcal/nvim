@@ -1,0 +1,46 @@
+{
+  "Table driven test": {
+    "prefix": "tabletest",
+    "body": [
+      "func Test${1:YourFunc}(t *testing.T) {",
+      "\ttests := []struct{",
+      "\t\tname string",
+      "\t}{",
+      "\t\t{",
+      "\t\t\tname: \"my test case\",",
+      "\t\t},",
+      "\t}",
+      "\tfor _, tt := range tests {",
+      "\t\tt.Run(tt.name, func(t *testing.T) {",
+      "\t\t})",
+      "\t}",
+      "}"
+    ],
+    "description": "Create basic structure for a table driven test"
+  },
+  "if err != nil": {
+    "prefix": "iferr",
+    "body": "if err != nil {\n\t${1:return ${2:nil, }${3:err}}\n}",
+    "description": "Snippet for if err != nil"
+  },
+  "if err := f(); err != nil": {
+    "prefix": "iferrf",
+    "body": "if err := ${1:YourFunc}(); err != nil {\n\t${2:return ${3:nil, }${4:err}}\n}",
+    "description": "Snippet for if err != nil"
+  },
+  "switch statement": {
+    "prefix": "switch",
+    "body": "switch ${1:expression} {\ncase ${2:condition}:\n\t$0\n}",
+    "description": "Snippet for switch statement"
+  },
+  "defer statement": {
+    "prefix": "defer",
+    "body": "defer func() {\n\t$0\n}()",
+    "description": "Snippet for defer statement"
+  },
+  "debug func": {
+    "prefix": "debug",
+    "body": "func debug(v any) {\n\tb, _ := json.MarshalIndent(v, \"\", \"\\t\")\n\tfmt.Printf(\"\\n\\n%s\\n\\n\", string(b))\n}",
+    "description": "Snippet for debug func"
+  }
+}

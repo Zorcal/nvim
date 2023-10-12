@@ -8,15 +8,15 @@ return {
     'hrsh7th/cmp-path',
     'saadparwaiz1/cmp_luasnip',
     'L3MON4D3/LuaSnip',
-    'rafamadriz/friendly-snippets',
   },
   config = function()
     local cmp = require 'cmp'
 
     local luasnip = require 'luasnip'
 
-    -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
+    -- loads vscode style snippets
     require('luasnip.loaders.from_vscode').lazy_load()
+    require('luasnip.loaders.from_vscode').lazy_load { paths = { './snippets' } }
 
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
     cmp.setup {
