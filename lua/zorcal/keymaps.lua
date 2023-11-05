@@ -1,6 +1,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Please don't cancel me...
+vim.keymap.set({ 'n', 'v', 'x', 'i' }, '<C-c>', '<ESC>')
+vim.keymap.set('n', '<C-s>', ':w<CR>')
+
 -- Unbind.
 vim.keymap.set('n', 'Q', '<nop>')
 vim.keymap.set({ 'v', 'i' }, '<Up>', '<nop>')
