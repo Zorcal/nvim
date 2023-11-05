@@ -28,14 +28,9 @@ return {
       },
     }
 
-    -- Add -local argument to goimports.
-    local modname = require('zorcal.lsp.go').module_name()
-    if modname ~= nil then
-      if modname:find('github.com/formulatehq', 1, true) == 1 then
-        modname = 'github.com/formulatehq'
-      end
-      local util = require 'conform.util'
-      util.add_formatter_args(require 'conform.formatters.goimports', { '-local', modname })
-    end
+    require('conform.util').add_formatter_args(require 'conform.formatters.goimports', {
+      '-local',
+      'github.com/formulatehq',
+    })
   end,
 }
