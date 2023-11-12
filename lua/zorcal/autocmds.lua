@@ -36,3 +36,10 @@ autocmd({ 'BufRead', 'BufNewFile' }, {
   desc = 'Those damn format options...',
   command = [[setlocal formatoptions-=cro]],
 })
+
+autocmd({ 'BufReadPost', 'FileReadPost' }, {
+  group = zorcal_group,
+  pattern = '*',
+  desc = 'Open all folds on startup',
+  command = [[normal zR]],
+})
