@@ -36,3 +36,11 @@ autocmd({ 'BufRead', 'BufNewFile' }, {
   desc = 'Those damn format options...',
   command = [[setlocal formatoptions-=cro]],
 })
+
+-- vim-dadbod-completion
+vim.cmd [[
+  autocmd FileType sql setlocal omnifunc=vim_dadbod_completion#omni
+]]
+vim.cmd [[
+  autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+]]
