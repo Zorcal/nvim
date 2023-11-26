@@ -36,3 +36,10 @@ vim.opt.updatetime = 50
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.cmd [[ set nofoldenable foldmethod=manual foldlevelstart=99 ]]
+
+-- .templ files not recognized with my current version.
+vim.filetype.add {
+  extension = {
+    templ = 'templ',
+  },
+}
