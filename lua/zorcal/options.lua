@@ -1,9 +1,6 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-vim.opt.spell = true -- set spell on
-vim.opt.spelllang = 'en_us'
-
 vim.opt.termguicolors = true
 
 vim.opt.tabstop = 4
