@@ -1,5 +1,8 @@
-vim.opt.nu = true
+vim.opt.number = true
 vim.opt.relativenumber = true
+
+vim.opt.spell = true -- set spell on
+vim.opt.spelllang = 'en_us'
 
 vim.opt.termguicolors = true
 
@@ -8,8 +11,10 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.textwidth = 0
-
 vim.opt.smartindent = true
+
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 vim.opt.wrap = false
 
@@ -25,6 +30,8 @@ vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = 'yes'
+
+vim.opt.wildignore = '*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx' -- files that u never want to edit
 
 -- Treat special characters as words so that we can jump to them with w and b.
 vim.opt.iskeyword:append '?'
@@ -43,3 +50,16 @@ vim.filetype.add {
     templ = 'templ',
   },
 }
+
+-- Sometimes my fingers are just too quick (or too slow?) for vim...
+vim.cmd 'cnoreabbrev W w'
+vim.cmd 'cnoreabbrev Wq wq'
+vim.cmd 'cnoreabbrev WQ wq'
+vim.cmd 'cnoreabbrev Wa wa'
+vim.cmd 'cnoreabbrev WA wa'
+vim.cmd 'cnoreabbrev Q  q'
+vim.cmd 'cnoreabbrev Qa  qa'
+vim.cmd 'cnoreabbrev QA  qa'
+
+vim.opt.virtualedit = 'block'
+vim.opt.inccommand = 'split'

@@ -48,6 +48,12 @@ vim.keymap.set('n', '<C-k>', '<cmd>cprev<CR>zz')
 vim.keymap.set('n', '<leader>j', '<cmd>lnext<CR>zz')
 vim.keymap.set('n', '<leader>k', '<cmd>lprev<CR>zz')
 
+-- Navigate tabs.
+vim.keymap.set('n', '<leader>to', ':tabnew<CR>')
+vim.keymap.set('n', '<leader>tx', ':tabclose<CR>')
+vim.keymap.set('n', '<leader>tn', ':tabn<CR>')
+vim.keymap.set('n', '<leader>tp', ':tabp<CR>')
+
 -- Undo stops.
 vim.keymap.set('i', ',', ',<C-g>u')
 vim.keymap.set('i', '.', '.<C-g>u')
