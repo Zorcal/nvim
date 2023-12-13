@@ -114,6 +114,24 @@ return {
       },
       graphql = {
         filetypes = { 'graphql', 'gql', 'svelte', 'typescriptreact', 'javascriptreact' },
+        root_dir = lspconfig.util.root_pattern(
+          -- https://the-guild.dev/graphql/config/docs/user/usage
+          'graphql.config.json',
+          'graphql.config.js',
+          'graphql.config.cjs',
+          'graphql.config.ts',
+          'graphql.config.toml',
+          'graphql.config.yaml',
+          'graphql.config.yml',
+          '.graphqlrc', -- (YAML or JSON)
+          '.graphqlrc.json',
+          '.graphqlrc.toml',
+          '.graphqlrc.yml',
+          '.graphqlrc.yaml',
+          '.graphqlrc.js',
+          '.graphqlrc.ts',
+          'package.json' -- `graphql` property in package.json
+        ),
       },
       emmet_ls = {
         filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'svelte' },
@@ -152,7 +170,6 @@ return {
             },
           },
         },
-
         flags = {
           debounce_text_changes = 200,
         },
