@@ -45,8 +45,5 @@ return {
         enable = false,
       },
     }
-
-    vim.keymap.set('n', '<leader>gB', ':Gitsigns toggle_current_line_blame<CR>', { desc = 'Toggle git blame' })
-    vim.keymap.set('n', '<leader>gph', ':Gitsigns preview_hunk<CR>', { desc = 'Preview Git hunk' })
   end,
 }
