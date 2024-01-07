@@ -63,10 +63,10 @@ return {
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = '<C-space>',
-            node_incremental = '<C-space>',
+            init_selection = '<M-n>',
+            node_incremental = '<M-n>',
             scope_incremental = false,
-            node_decremental = '<bs>',
+            node_decremental = '<M-p>',
           },
         },
         -- enable nvim-ts-context-commentstring plugin for commenting tsx and jsx
