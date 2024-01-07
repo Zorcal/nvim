@@ -16,6 +16,7 @@ return {
       treesitter.setup { -- enable syntax highlighting
         highlight = {
           enable = true,
+          additional_vim_regex_highlighting = false,
         },
         -- ensure these language parsers are installed
         ensure_installed = {
