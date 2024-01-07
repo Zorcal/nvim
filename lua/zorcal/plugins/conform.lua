@@ -47,7 +47,7 @@ return {
       '--base-formatter',
       'gofumpt',
       '-m',
-      '150',
+      '250',
     })
   end,
 }
