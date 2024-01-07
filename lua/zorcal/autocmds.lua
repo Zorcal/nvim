@@ -29,3 +29,10 @@ autocmd({ 'BufWritePre' }, {
   desc = 'Remove extra whitespace',
   command = [[%s/\s\+$//e]],
 })
+
+autocmd({ 'BufRead', 'BufNewFile' }, {
+  group = zorcal_group,
+  pattern = '*',
+  desc = 'Those damn format options...',
+  command = [[setlocal formatoptions-=cro]],
+})
