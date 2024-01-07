@@ -101,7 +101,17 @@ return {
       html = true,
       tsserver = true,
       cssls = true,
-      tailwindcss = true,
+      tailwindcss = {
+        filetypes = {
+          'templ',
+          -- include any other filetypes where you need tailwindcss
+        },
+        init_options = {
+          userLanguages = {
+            templ = 'html',
+          },
+        },
+      },
       graphql = {
         filetypes = { 'graphql', 'gql', 'svelte', 'typescriptreact', 'javascriptreact' },
       },
