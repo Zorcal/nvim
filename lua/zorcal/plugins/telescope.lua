@@ -1,7 +1,6 @@
 return {
   'nvim-telescope/telescope.nvim',
-  -- branch = "0.1.x",
-  commit = '2d92125620417fbea82ec30303823e3cd69e90e8', -- supports sort_by for diagnostics
+  branch = '0.1.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
