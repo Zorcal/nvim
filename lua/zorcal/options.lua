@@ -30,6 +30,8 @@ vim.opt.signcolumn = 'yes'
 
 vim.opt.wildignore = '*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx' -- files that u never want to edit
 
+vim.opt.completeopt = 'menuone,noselect'
+
 -- Treat special characters as words so that we can jump to them with w and b.
 vim.opt.iskeyword:append '?'
 vim.opt.iskeyword:append '&'
@@ -60,3 +62,5 @@ vim.cmd 'cnoreabbrev QA  qa'
 
 vim.opt.virtualedit = 'block'
 vim.opt.inccommand = 'split'
+
+vim.opt.breakindent = true
