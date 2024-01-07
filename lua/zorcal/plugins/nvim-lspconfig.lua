@@ -147,6 +147,7 @@ return {
           debounce_text_changes = 200,
         },
       },
+      templ = true,
       rust_analyzer = {
         cmd = { 'rustup', 'run', 'nightly', 'rust-analyzer' },
         settings = {
