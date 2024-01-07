@@ -10,6 +10,7 @@ return {
   },
   config = function()
     local neogit = require 'neogit'
+
     neogit.setup {
       integrations = {
         -- If enabled, use telescope for menu selection rather than vim.ui.select.
@@ -27,5 +28,7 @@ return {
         fzf_lua = true,
       },
     }
+
+    vim.keymap.set('n', '<leader>G', neogit.open, { desc = 'Open Neogit' })
   end,
 }
