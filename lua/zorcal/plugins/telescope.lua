@@ -47,9 +47,14 @@ return {
       require('telescope.builtin').buffers(no_preview_opts())
     end, { desc = 'Find open buffers' })
 
-    vim.keymap.set('n', '<leader>/', function()
+    vim.keymap.set('n', '<leader>gs', function()
       require('telescope.builtin').live_grep(git_cwd_opts())
     end, { desc = 'Live grep' })
+
+    vim.keymap.set('n', '<leader>/', function()
+      local opts = vim.tbl_deep_extend('force', git_cwd_opts(), { search = vim.fn.input 'Grep > ' })
+      builtin.grep_string(opts)
+    end)
 
     vim.keymap.set('n', '<leader>bs', function()
       require('telescope.builtin').current_buffer_fuzzy_find {}
