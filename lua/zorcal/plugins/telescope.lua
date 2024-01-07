@@ -126,6 +126,10 @@ return {
       require('telescope.builtin').current_buffer_fuzzy_find {}
     end, { desc = 'Search current buffer' })
 
+    vim.keymap.set('n', '<leader>mf', function()
+      require('telescope.builtin').marks {}
+    end, { desc = 'Search marks' })
+
     vim.keymap.set('n', '<leader>?', builtin.help_tags, { desc = 'Help' })
 
     vim.keymap.set('n', '<leader>gfb', '<cmd>Telescope git_branches<CR>', { desc = 'Checkout git branch' })
