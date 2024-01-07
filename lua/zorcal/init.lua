@@ -1,4 +1,5 @@
 require 'zorcal.options'
+require 'zorcal.commands'
 require 'zorcal.keymaps'
 require 'zorcal.lazy'
 require 'zorcal.autocmds'

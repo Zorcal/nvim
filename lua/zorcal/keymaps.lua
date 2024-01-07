@@ -75,7 +75,7 @@ end)
 
 -- Toggle quickfix list window.
 vim.cmd [[
-  function! QuickFixToggle()
+  function! ToggleQuickfixList()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
       copen
     else
@@ -83,7 +83,10 @@ vim.cmd [[
     endif
   endfunction
 ]]
-vim.keymap.set('n', '<C-q>', ':call QuickFixToggle()<CR>', { desc = 'Toggle quickfix list' })
+vim.keymap.set('n', '<C-q>', ':call ToggleQuickfixList()<CR>', { desc = 'Toggle quickfix list' })
+
+vim.keymap.set('n', '<leader>Tb', ':ToggleBackground<CR>', { desc = 'Toggle background' })
+vim.keymap.set('n', '<leader>Trn', ':ToggleRelativeNumber<CR>', { desc = 'Toggle relative number' })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 vim.cmd [[
