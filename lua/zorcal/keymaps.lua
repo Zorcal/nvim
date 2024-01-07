@@ -58,10 +58,6 @@ vim.keymap.set('v', '>', '>gv')
 -- Undo.
 vim.keymap.set('n', 'U', '<C-R>')
 
--- File explorer. See keybindings for netrw in lua/zorcal/autocmds.lua.
-vim.keymap.set('n', '<leader>e', '<cmd>:Lexplore<CR>', { desc = 'Toggle explorer (root)' })
-vim.keymap.set('n', '<leader>E', '<cmd>:Lexplore %:p:h<CR>', { desc = 'Toggle explorer (cwd)' })
-
 -- Source file.
 vim.keymap.set('n', '<leader><leader>', function()
   vim.cmd 'so'
