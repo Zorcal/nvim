@@ -41,7 +41,7 @@ return {
             return
           end
 
-          local ft = vim.api.nvim_buf_get_option(ctx.bufnr, 'filetype')
+          local ft = vim.api.nvim_get_option_value('filetype', { buf = ctx.bufnr })
 
           -- In Go code, I do not like to see any mocks for impls...
           if ft == 'go' then
@@ -81,13 +81,13 @@ return {
       lua_ls = {
         Lua = {
           workspace = {
-            checkThirdParty = false,
+            checkThirdParty = true,
           },
         },
         settings = {
           Lua = {
             diagnostics = {
-              globals = { 'vim' },
+              globals = { 'vim', 'pairs' },
             },
             workspace = {
               library = {
