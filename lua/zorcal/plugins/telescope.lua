@@ -112,7 +112,7 @@ return {
       require('telescope.builtin').buffers(no_preview_opts())
     end, { desc = 'Find open buffers' })
 
-    vim.keymap.set('n', '<leader>gs', function()
+    vim.keymap.set('n', '<leader>lg', function()
       require('telescope.builtin').live_grep(git_cwd_opts())
     end, { desc = 'Live grep' })
 
