@@ -43,13 +43,17 @@ return {
       require('telescope.builtin').find_files(opts)
     end, { desc = 'Find files' })
 
-    vim.keymap.set('n', '<leader>b', function()
+    vim.keymap.set('n', '<leader>bf', function()
       require('telescope.builtin').buffers(no_preview_opts())
-    end, { desc = 'Search buffers' })
+    end, { desc = 'Find open buffers' })
 
     vim.keymap.set('n', '<leader>/', function()
       require('telescope.builtin').live_grep(git_cwd_opts())
     end, { desc = 'Live grep' })
+
+    vim.keymap.set('n', '<leader>bs', function()
+      require('telescope.builtin').current_buffer_fuzzy_find {}
+    end, { desc = 'Search current buffer' })
 
     vim.keymap.set('n', '<leader>?', builtin.help_tags, { desc = 'Help' })
 
