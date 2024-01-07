@@ -12,8 +12,74 @@ return {
     local builtin = require 'telescope.builtin'
 
     telescope.setup {
-      defaults = {
-        file_ignore_patterns = { '.git/', 'node_modules/', 'vendor/', '.cache/', '.vscode/', '*/tmp/*', 'Cargo.lock', '*pycache', '*.o' },
+      selection_strategy = 'reset',
+      sorting_strategy = 'descending',
+      scroll_strategy = 'cycle',
+      color_devicons = true,
+      file_previewer = require('telescope.previewers').vim_buffer_cat.new,
+      grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
+      qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+      history = {
+        path = '~/.local/share/nvim/databases/telescope_history.sqlite3',
+        limit = 100,
+      },
+      pickers = {
+        find_files = {
+          find_command = vim.fn.executable 'fd' == 1 and {
+            'fd',
+            '--strip-cwd-prefix',
+            '-t',
+            'f',
+            '-t',
+            'l',
+            '-H',
+            '-E',
+            '.git',
+            '-E',
+            'node_modules',
+            '-E',
+            'vendor',
+            '-E',
+            '.cache',
+            '-E',
+            '.vscode',
+            '-E',
+            '*/tmp/*',
+            '-E',
+            'Cargo.lock',
+            '-E',
+            '*pycache',
+            '-E',
+            '*.o',
+            '-E',
+            'package-lock.json',
+          } or nil,
+        },
+
+        git_branches = {
+          mappings = {
+            i = {
+              ['<C-a>'] = false,
+            },
+          },
+        },
+
+        buffers = {
+          sort_lastused = true,
+          sort_mru = true,
+        },
+      },
+
+      extensions = {
+        fzy_native = {
+          override_generic_sorter = true,
+          override_file_sorter = true,
+        },
+
+        fzf_writer = {
+          use_highlighter = false,
+          minimum_grep_characters = 6,
+        },
       },
     }
 
