@@ -19,12 +19,12 @@
     "description": "Create basic structure for a table driven test"
   },
   "if err != nil": {
-    "prefix": "iferr",
+    "prefix": "ife",
     "body": "if err != nil {\n\t${1:return ${2:nil, }${3:err}}\n}",
     "description": "Snippet for if err != nil"
   },
   "if err := f(); err != nil": {
-    "prefix": "iferrf",
+    "prefix": "ifef",
     "body": "if err := ${1:YourFunc}(); err != nil {\n\t${2:return ${3:nil, }${4:err}}\n}",
     "description": "Snippet for if err != nil"
   },
