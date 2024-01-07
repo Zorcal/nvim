@@ -8,7 +8,12 @@ return {
   config = function()
     local lspconfig = require 'lspconfig'
 
-    local on_attach = function(_, bufnr)
+    local custom_init = function(client)
+      client.config.flags = client.config.flags or {}
+      client.config.flags.allow_incremental_sync = true
+    end
+
+    local custom_attach = function(_, bufnr)
       local opts = function(desc)
         return {
           buffer = bufnr,
@@ -41,7 +46,7 @@ return {
           -- In Go code, I do not like to see any mocks for impls...
           if ft == 'go' then
             local new_result = vim.tbl_filter(function(v)
-              return not (string.find(v.uri, 'mock_') or string.find(v.uri, 'mock/') or string.find(v.uri, 'mocks/'))
+              return not (string.find(v.uri, 'mock_') or string.find(v.uri, 'mocks_') or string.find(v.uri, 'mock/') or string.find(v.uri, 'mocks/'))
             end, result)
             if #new_result > 0 then
               result = new_result
@@ -54,9 +59,15 @@ return {
       end, opts 'Go to implementation')
     end
 
-    -- Used to enable autocompletion (assign to every lsp server config).
-    local cmp_nvim_lsp = require 'cmp_nvim_lsp'
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
+    updated_capabilities.textDocument.completion.completionItem.snippetSupport = true
+    updated_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
+    -- Completion configuration
+    vim.tbl_deep_extend('force', updated_capabilities, require('cmp_nvim_lsp').default_capabilities())
+    updated_capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
+
+    updated_capabilities.textDocument.codeLens = { dynamicRegistration = false }
 
     -- Change the Diagnostic symbols in the sign column (gutter).
     local signs = { Error = 'E', Warn = 'W', Hint = 'H', Info = 'I' }
@@ -65,125 +76,111 @@ return {
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
     end
 
-    lspconfig['html'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['tsserver'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['cssls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['tailwindcss'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['graphql'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      filetypes = { 'graphql', 'gql', 'svelte', 'typescriptreact', 'javascriptreact' },
-    }
-
-    lspconfig['emmet_ls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'svelte' },
-    }
-
-    lspconfig['pyright'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    -- golangci_lint_ls?
-    lspconfig['gopls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['bashls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['clangd'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['dockerls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['docker_compose_language_service'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['marksman'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['awk_ls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['jsonls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['yamlls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['rust_analyzer'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['zls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['sqlls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['terraformls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-    }
-
-    lspconfig['lua_ls'].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = {
+    local servers = {
+      bashls = true,
+      lua_ls = {
         Lua = {
-          diagnostics = {
-            globals = { 'vim' },
-          },
           workspace = {
-            library = {
-              [vim.fn.expand '$VIMRUNTIME/lua'] = true,
-              [vim.fn.stdpath 'config' .. '/lua'] = true,
+            checkThirdParty = false,
+          },
+        },
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' },
+            },
+            workspace = {
+              library = {
+                [vim.fn.expand '$VIMRUNTIME/lua'] = true,
+                [vim.fn.stdpath 'config' .. '/lua'] = true,
+              },
             },
           },
         },
       },
+      html = true,
+      tsserver = true,
+      cssls = true,
+      tailwindcss = true,
+      graphql = {
+        filetypes = { 'graphql', 'gql', 'svelte', 'typescriptreact', 'javascriptreact' },
+      },
+      emmet_ls = {
+        filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'svelte' },
+      },
+      pyright = true,
+      vimls = true,
+      yamlls = true,
+      jsonls = true,
+      clangd = {
+        cmd = {
+          'clangd',
+          '--background-index',
+          '--suggest-missing-includes',
+          '--clang-tidy',
+          '--header-insertion=iwyu',
+        },
+        init_options = {
+          clangdFileStatus = true,
+        },
+        filetypes = {
+          'c',
+        },
+      },
+      gopls = {
+        settings = {
+          gopls = {
+            codelenses = { test = true },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+          },
+        },
+
+        flags = {
+          debounce_text_changes = 200,
+        },
+      },
+      rust_analyzer = {
+        cmd = { 'rustup', 'run', 'nightly', 'rust-analyzer' },
+        settings = {
+          ['rust-analyzer'] = {
+            checkOnSave = {
+              command = 'clippy',
+            },
+          },
+        },
+      },
+      dockerls = true,
+      docker_compose_language_service = true,
+      marksman = true,
+      awk_ls = true,
+      zls = true,
+      sqlls = true,
+      terraformls = true,
     }
+    for server, config in pairs(servers) do
+      if not config then
+        return
+      end
+
+      if type(config) ~= 'table' then
+        config = {}
+      end
+
+      config = vim.tbl_deep_extend('force', {
+        on_init = custom_init,
+        on_attach = custom_attach,
+        capabilities = updated_capabilities,
+      }, config)
+
+      lspconfig[server].setup(config)
+    end
   end,
 }
