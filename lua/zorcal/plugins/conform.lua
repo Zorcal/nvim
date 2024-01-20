@@ -26,7 +26,7 @@ return {
         },
         rust = { 'rustfmt' },
         toml = { 'taplo' },
-        sql = { 'sql_formatter' },
+        -- sql = { 'sql_formatter' },
         sh = { 'shellcheck', 'shfmt' },
         bash = { 'shellcheck', 'shfmt' },
         tf = { 'terraform_fmt' },
