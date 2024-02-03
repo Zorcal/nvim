@@ -45,5 +45,9 @@ return {
         enable = false,
       },
     }
+
+    vim.keymap.set('n', '<leader>tb', function()
+      vim.cmd 'Gitsigns toggle_current_line_blame'
+    end, { desc = 'Toggle line buffer' })
   end,
 }
