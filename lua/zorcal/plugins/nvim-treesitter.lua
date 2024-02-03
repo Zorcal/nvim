@@ -30,21 +30,28 @@ return {
           },
         },
         textobjects = {
-          enable = true,
-          lookahead = true,
-          keymaps = {
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['aa'] = '@paramater.outer', -- 'a' for argument
-            ['ia'] = '@paramater.inner',
-            ['ac'] = '@comment.outer',
-            ['ic'] = '@comment.inner',
-            ['as'] = '@class.outer', -- 's' for struct
-            ['is'] = '@class.inner',
-            ['al'] = '@loop.outer',
-            ['il'] = '@loop.inner',
-            ['ai'] = '@call.outer', -- 'i' for invocation
-            ['ii'] = '@call.inner',
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ['af'] = '@function.outer',
+              ['if'] = '@function.inner',
+              ['aa'] = '@parameter..outer', -- 'a' for argument
+              ['ia'] = '@parameter..inner',
+              ['ac'] = '@comment.outer',
+              ['ic'] = '@comment.inner',
+              ['as'] = '@class.outer', -- 's' for struct
+              ['is'] = '@class.inner',
+              ['al'] = '@loop.outer',
+              ['il'] = '@loop.inner',
+              ['ai'] = '@call.outer', -- 'i' for invocation
+              ['ii'] = '@call.inner',
+            },
+            selection_modes = {
+              ['@parameter.outer'] = 'v', -- charwise
+              ['@function.outer'] = 'V', -- linewise
+              ['@class.outer'] = '<c-v>', -- blockwise
+            },
           },
           move = {
             enable = true,
