@@ -99,7 +99,9 @@ return {
         },
       },
       html = {
-        filetypes = { 'html', 'templ' },
+        filetypes = {
+          'html', --[[ 'templ' ]]
+        },
       },
       tsserver = true,
       cssls = true,
