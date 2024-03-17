@@ -8,4 +8,4 @@ vim.keymap.set('n', '<leader>xt', function()
   require('dap-go').debug_test()
 end, { desc = 'Debug closest test' })
 
-vim.cmd 'Copilot enable'
+vim.cmd 'Copilot disable'
