@@ -18,6 +18,8 @@ return {
     require('luasnip.loaders.from_vscode').lazy_load()
     require('luasnip.loaders.from_vscode').lazy_load { paths = { './snippets' } }
 
+    local compare = cmp.config.compare
+
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
     cmp.setup {
       completion = {
@@ -42,12 +44,20 @@ return {
       },
       -- sources for autocompletion
       sources = cmp.config.sources {
-        -- TODO:
-        -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/setup-copilot-lua-plus-nvim-cmp.md#setup-copilotlua--nvim-cmp
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' }, -- snippets
-        { name = 'buffer' }, -- text within current buffer
-        { name = 'path' }, -- file system paths
+        { name = 'nvim_lsp', priority = 4 },
+        { name = 'luasnip', priority = 3 }, -- snippets
+        { name = 'buffer', priority = 2 }, -- text within current buffer
+        { name = 'path', priority = 1 }, -- file system paths
+      },
+      sorting = {
+        priority_weight = 1.0,
+        comparators = {
+          compare.order,
+          compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
+          compare.locality,
+          compare.recently_used,
+          compare.offset,
+        },
       },
     }
   end,
