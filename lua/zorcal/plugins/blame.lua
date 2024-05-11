@@ -1,5 +1,6 @@
 return {
   'FabijanZulj/blame.nvim',
+  event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     require('blame').setup()
 
